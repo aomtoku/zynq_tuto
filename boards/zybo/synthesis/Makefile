@@ -48,7 +48,12 @@ export: synth
 	vivado -mode batch -source export_hardware.tcl
 
 sdk: export
-	xsct build_fsbl.tcl ;\
+	xsct build_fsbl.tcl 
+	if [ -d ${BIN_DIR} ]; then \
+		echo "";\
+	else \
+		mkdir ${BIN_DIR} ;\
+	fi
 	cp runs/sample_project.sdk/fsbl/Debug/fsbl.elf ${BIN_DIR}/
 
 fetch:
