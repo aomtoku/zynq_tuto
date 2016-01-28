@@ -1,0 +1,6 @@
+image:
+{
+	[bootloader]../../../bin/fsbl.elf
+	runs/sample_project.runs/impl_1/system_wrapper.bit
+	../../../bin/u-boot.elf
+}
