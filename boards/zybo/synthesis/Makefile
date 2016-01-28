@@ -1,4 +1,4 @@
-all: runs/top.runs/impl_1/top.bit 
+all:  
 
 project:
 	vivado -mode batch  -source create_project.tcl
@@ -48,18 +48,6 @@ sd-card:
 	cp ../../../tools/uramdisk.image.gz /mnt/sd_card/
 	cp ../../../bin/BOOT.bin /mnt/sd_card/
 	sudo umount /mnt/sd_card
-
-load: runs/top.runs/impl_1/top.bit 
-	./xprog.sh load
-
-flash: runs/top.runs/impl_1/top.mcs 
-	./xprog.sh flash
-
-runs/top.runs/impl_1/top.bit:
-	vivado -mode batch -source  zybo_batch.tcl 
-
-runs/top.runs/impl_1/top.mcs: runs/top.runs/impl_1/top.bit
-	./xprog.sh mcs
 
 clean:
 	rm -fr runs vivado*jou vivado*log ../../../bin/*
