@@ -21,12 +21,10 @@ u-boot:
 	cd ${UBOOT_DIR} ;\
 	make CROSS_COMPILE=arm-xilinx-linux-gnueabi- zynq_zybo_config  ;\
 	make CROSS_COMPILE=arm-xilinx-linux-gnueabi- 
-	@if [ -d ${BIN_DIR} ]; then \
-		cp ${UBOOT_DIR}/u-boot ${BIN_DIR}/u-boot.elf ;\
-	else \
+	@if [ ! -d ${BIN_DIR} ]; then \
 		mkdir ${BIN_DIR} ;\
-		cp ${UBOOT_DIR}/u-boot ${BIN_DIR}/u-boot.elf ;\
 	fi
+	cp ${UBOOT_DIR}/u-boot ${BIN_DIR}/u-boot.elf ;\
 
 linux:
 	printf "\n\nNow u-boot Buildig\n\n" 
@@ -49,22 +47,16 @@ export: synth
 
 sdk: export
 	xsct build_fsbl.tcl 
-	if [ -d ${BIN_DIR} ]; then \
-		echo "";\
-	else \
+	if [ ! -d ${BIN_DIR} ]; then \
 		mkdir ${BIN_DIR} ;\
 	fi
 	cp runs/sample_project.sdk/fsbl/Debug/fsbl.elf ${BIN_DIR}/
 
 fetch:
-	@if [ -d ${UBOOT_DIR} ]; then \
-		echo "";\
-	else \
+	@if [ ! -d ${UBOOT_DIR} ]; then \
 		git clone -b master-next https://github.com/DigilentInc/u-boot-Digilent-Dev.git ${UBOOT_DIR} ;\
 	fi
-	@if [ -d ${LINUX_DIR} ]; then \
-		echo "";\
-	else \
+	@if [ ! -d ${LINUX_DIR} ]; then \
 		git clone -b master-next https://github.com/DigilentInc/Linux-Digilent-Dev.git ${LINUX_DIR} ;\
 	fi
 
