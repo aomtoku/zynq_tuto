@@ -40,16 +40,16 @@ u-boot.bin: ../../../bin/fsbl.elf runs/sample_project.runs/impl_1/system_wrapper
 
 dtb:
 	cp ../data/ramdisk8M.image.gz ${LINUX_DIR}/
-	cd ${LINUX_DIR} &&\
-	mkimage -A arm -T ramdisk -c gzip -d ./ramdisk8M.image.gz uramdisk.image.gz &&\
+	cd ${LINUX_DIR} ;\
+	mkimage -A arm -T ramdisk -c gzip -d ./ramdisk8M.image.gz uramdisk.image.gz ;\
 	./scripts/dtc/dtc -I dts -O dtb -o ../devicetree.dtb arch/arm/boot/dts/zynq-zybo.dts
 
 export: synth
 	vivado -mode batch -source export_hardware.tcl
 
 sdk: export
-	xsct build_fsbl.tcl &&\
-	cp runs/sample_project.sdk/fsbl/Debug/fsbl.elf ${BIN_DIR}
+	xsct build_fsbl.tcl ;\
+	cp runs/sample_project.sdk/fsbl/Debug/fsbl.elf ${BIN_DIR}/
 
 fetch:
 	@if [ -d ${UBOOT_DIR} ]; then \
